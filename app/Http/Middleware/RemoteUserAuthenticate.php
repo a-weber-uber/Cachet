@@ -48,6 +48,10 @@ class RemoteUserAuthenticate
             }
         }
 
-        return $next($request);
+        $reponse = $next($request);
+
+        $response->header('x-auth-params-email', 'something goes here, but what?');
+
+        return $response;
     }
 }
