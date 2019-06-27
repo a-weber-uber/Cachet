@@ -40,18 +40,14 @@ class RemoteUserAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($remoteUser = $request->server('REMOTE_USER')) {
+        if ($remoteUser = $request->header('X-AUTH-PARAMS-EMAIL')) {
             $user = User::where('email', '=', $remoteUser)->first();
-
+            
             if ($user instanceof User && $this->auth->guest()) {
-                $this->auth->login($user);
+              $this->auth->login($user);
             }
-        }
+          }
 
-        $reponse = $next($request);
-
-        $response->header('x-auth-params-email', 'something goes here, but what?');
-
-        return $response;
+          return $next($request);
     }
 }
