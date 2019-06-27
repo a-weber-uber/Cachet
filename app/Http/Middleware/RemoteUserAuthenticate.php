@@ -40,7 +40,7 @@ class RemoteUserAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($remoteUser = $request->header('X-AUTH-PARAMS-EMAIL')) {
+        if ($remoteUser = $request->header('HTTP_X_AUTH_PARAMS_EMAIL')) {
             $user = User::where('email', '=', $remoteUser)->first();
             
             if ($user instanceof User && $this->auth->guest()) {
